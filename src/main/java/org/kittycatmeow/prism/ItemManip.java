@@ -47,7 +47,7 @@ public class ItemManip {
         }
         return null;
     }
-    public static int removePower(Player p) {
+    private static int removePower(Player p) {
         for (int i = 0; i < p.getInventory().getSize(); i++) {
             if (isPower(p.getInventory().getItem(i))) {
                 p.getInventory().remove(p.getInventory().getItem(i));
@@ -60,7 +60,7 @@ public class ItemManip {
         }
         return -2;
     }
-    public static void addPower(Player p) {
+    private static void addPower(Player p) {
         try {
             PrismItemLibrary.Ids id = PrismItemLibrary.Ids.valueOf(
                     Prism.getDataHandler().get(p.getUniqueId().toString())

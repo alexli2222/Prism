@@ -65,15 +65,13 @@ public enum InteractEntityAggressivePowers {
                 int counter = 0;
                 @Override
                 public void run() {
-                    if (counter >= 30) {
+                    if (counter >= 40) {
                         this.cancel();
                         e.setNoDamageTicks(0);
                         e.damage(e.getHealth() / 2 + 15, p);
                         e.setNoDamageTicks(0);
                         return;
                     }
-                    originalLocation.setYaw(e.getLocation().getYaw());
-                    originalLocation.setPitch(e.getLocation().getPitch());
                     e.teleport(originalLocation);
                     e.getWorld().playSound(e.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_HURT, 1, 1);
                     ParticleHelper.Dust.DrawCone(e.getLocation(), Color.BLUE, 0.5f, 3, 3, 1, false, false, false);

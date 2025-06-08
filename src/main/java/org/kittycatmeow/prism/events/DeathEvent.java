@@ -13,11 +13,10 @@ public class DeathEvent implements Listener {
         Player p = event.getPlayer();
         p.closeInventory();
         event.getDrops().removeIf(ItemManip::isPower);
-        ItemManip.removePower(p);
     }
     @EventHandler
     public void RespawnHandlesRegive(PlayerRespawnEvent event) {
         Player p = event.getPlayer();
-        ItemManip.addPower(p);
+        ItemManip.replacePower(p);
     }
 }

@@ -32,7 +32,7 @@ public enum AggressivePowers {
             PrismItemLibrary.Ids.WATER,
             AggressivePowerTypes.INTERACTPLAYER,
             "<blue>Whirlpool</blue>",
-            "Traps the clicked player in a whirlpool for 3 seconds, then damage them for 15 + their current health / 2",
+            "Traps the clicked player in a whirlpool for 4 seconds, then damage them for 15 + their current health / 2",
             45000L
     ),
     CURSE_OF_ZEUS (

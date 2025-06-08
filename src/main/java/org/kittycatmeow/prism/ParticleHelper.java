@@ -16,10 +16,10 @@ public class ParticleHelper {
 
         private static void DrawCircle(Location location, ParticleBuilder builder, double radius) {
             //five rings per block
-            double total = radius * 5;
+            double total = radius * 10;
             double increment = radius / total;
             //loops for each ring
-            for (double r = 0; r < total; r += increment) {
+            for (double r = 0; r < radius; r += increment) {
                 //here r is the current radius that is being drawn
                 DrawRing(location, builder, r);
             }

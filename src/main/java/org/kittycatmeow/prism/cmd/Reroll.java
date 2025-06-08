@@ -30,8 +30,9 @@ public class Reroll implements CommandExecutor {
             Prism.sendPrefixedMessage(sender, "Player not found");
             return true;
         }
-        PrismItemLibrary.Ids power = Powers.randomPower(p);
-        String message = "Random power for "+p.getName()+" set to "+power.toString();
+        PrismItemLibrary.Ids id = Powers.randomPower(p);
+        Powers.sendRerollMessage(p, id);
+        String message = "Random power for "+p.getName()+" set to "+id.toString();
         Prism.sendPrefixedMessage(sender, message);
         return true;
     }

@@ -9,6 +9,9 @@ commands:
   prism:
     description: Plugin information
     usage: /prism
+  fix:
+    description: Replace your power in case of a bug or you just did something stupid
+    usage: /fix
   getrerollitem:
     description: Get a certain number of reroll items
     permission: op
@@ -34,6 +37,11 @@ commands:
     permission: op
     permission-message: You do not have permission to utilize this command
     usage: /reroll [player (default self)]
+  rerollall:
+    description: Gives a random power to all online players
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /rerollall
   reloadpowers:
     description: Reloads the powers for all online players
     permission: op

@@ -86,11 +86,13 @@ public final class Prism extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("prism").setExecutor(new Main());
+        getCommand("fix").setExecutor(new Fix());
         getCommand("getrerollitem").setExecutor(new GetRerollItem());
         getCommand("givererollitem").setExecutor(new GiveRerollItem());
         getCommand("givererollall").setExecutor(new GiveRerollAll());
         getCommand("setpower").setExecutor(new SetPower());
         getCommand("reroll").setExecutor(new Reroll());
+        getCommand("rerollall").setExecutor(new RerollAll());
         getCommand("reloadpowers").setExecutor(new ReloadPowers());
         getCommand("clearcooldowns").setExecutor(new ClearCooldowns());
     }

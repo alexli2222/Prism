@@ -2,6 +2,7 @@ package org.kittycatmeow.prism.power;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -71,7 +72,7 @@ public enum PassivePowers {
     REFRESH (
             PrismItemLibrary.Ids.WATER,
             "<green>Refresh</green>",
-                    "Obtain regeneration 2 and health boost 2 for 15 seconds.",
+                    "Obtain regeneration 2 and health boost 3 for 15 seconds.",
                     30000L
     ) {
         @Override
@@ -79,8 +80,9 @@ public enum PassivePowers {
             Player p = event.getPlayer();
             Powers.sendBenefitMessage(p, "You feel refreshed", name);
             p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 1));
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 300, 1));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 300, 2));
             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_SPLASH, 2, 1);
+            p.getWorld().spawnParticle(Particle.FALLING_WATER, p.getLocation().add(0, 1, 0), 250, 0.75, 1.25, 0.75);
         }
     },
     STATIC_SHIELD (

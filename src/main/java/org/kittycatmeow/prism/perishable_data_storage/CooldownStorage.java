@@ -1,10 +1,9 @@
-package org.kittycatmeow.chance.perishable_data_storage;
+package org.kittycatmeow.prism.perishable_data_storage;
 
 import org.bukkit.entity.Player;
-import org.kittycatmeow.chance.Chance;
-import org.kittycatmeow.chance.ParticleHelper;
-import org.kittycatmeow.chance.power.AggressivePowers;
-import org.kittycatmeow.chance.power.PassivePowers;
+import org.kittycatmeow.prism.Prism;
+import org.kittycatmeow.prism.power.AggressivePowers;
+import org.kittycatmeow.prism.power.PassivePowers;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -39,9 +38,9 @@ public class CooldownStorage {
         return System.currentTimeMillis() - last;
     }
     public static void sendCooldownMessage(Player p, PassivePowers passive, long left) {
-        Chance.sendPrefixedMessage(p, passive.name + " is on cooldown for " + left / 1000 + " seconds.");
+        Prism.sendPrefixedMessage(p, passive.name + " is on cooldown for " + left / 1000 + " seconds.");
     }
     public static void sendCooldownMessage(Player p, AggressivePowers aggressive, long left) {
-        Chance.sendPrefixedMessage(p, aggressive.name + " is on cooldown for " + left / 1000 + " seconds.");
+        Prism.sendPrefixedMessage(p, aggressive.name + " is on cooldown for " + left / 1000 + " seconds.");
     }
 }

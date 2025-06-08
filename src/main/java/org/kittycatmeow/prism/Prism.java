@@ -1,22 +1,22 @@
-package org.kittycatmeow.chance;
+package org.kittycatmeow.prism;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.kittycatmeow.chance.cmd.*;
-import org.kittycatmeow.chance.custom_effects.*;
-import org.kittycatmeow.chance.events.*;
-import org.kittycatmeow.chance.events.power.*;
+import org.kittycatmeow.prism.cmd.*;
+import org.kittycatmeow.prism.custom_effects.*;
+import org.kittycatmeow.prism.events.*;
+import org.kittycatmeow.prism.events.power.*;
 
 import java.io.IOException;
 
-public final class Chance extends JavaPlugin {
+public final class Prism extends JavaPlugin {
 
-    private static Chance instance;
+    private static Prism instance;
     private static DataHandler dataHandler;
-    private static ChanceItemLibrary itemLibrary;
+    private static FirstJoinDataHandler firstJoinDataHandler;
+    private static PrismItemLibrary itemLibrary;
 
     public static final String VERSION = "1.0.0";
 
@@ -25,11 +25,12 @@ public final class Chance extends JavaPlugin {
         instance = this;
         try {
             dataHandler = new DataHandler();
+            firstJoinDataHandler = new FirstJoinDataHandler();
         } catch (IOException e) {
             getServer().getPluginManager().disablePlugin(this);
             throw new RuntimeException(e);
         }
-        itemLibrary = new ChanceItemLibrary();
+        itemLibrary = new PrismItemLibrary();
         registerListeners();
         registerCommands();
     }
@@ -37,9 +38,10 @@ public final class Chance extends JavaPlugin {
     @Override
     public void onDisable() {
         dataHandler.save();
+        firstJoinDataHandler.save();
     }
 
-    public static Chance getPlugin() {
+    public static Prism getPlugin() {
         return instance;
     }
 
@@ -47,7 +49,11 @@ public final class Chance extends JavaPlugin {
         return dataHandler;
     }
 
-    public static ChanceItemLibrary getItemLibrary() {
+    public static FirstJoinDataHandler getFirstJoinDataHandler() {
+        return firstJoinDataHandler;
+    }
+
+    public static PrismItemLibrary getItemLibrary() {
         return itemLibrary;
     }
 
@@ -58,6 +64,8 @@ public final class Chance extends JavaPlugin {
         manager.registerEvents(new DropEvent(), getPlugin());
         manager.registerEvents(new InventoryEvent(), getPlugin());
         manager.registerEvents(new RerollEvent(), getPlugin());
+        manager.registerEvents(new CraftEvent(), getPlugin());
+        manager.registerEvents(new InteractEvent(), getPlugin());
         registerAbilities();
         registerCustomEffects();
     }
@@ -79,8 +87,10 @@ public final class Chance extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("chance").setExecutor(new Main());
+        getCommand("prism").setExecutor(new Main());
         getCommand("getrerollitem").setExecutor(new GetRerollItem());
+        getCommand("givererollitem").setExecutor(new GiveRerollItem());
+        getCommand("givererollall").setExecutor(new GiveRerollAll());
         getCommand("setpower").setExecutor(new SetPower());
         getCommand("reroll").setExecutor(new Reroll());
         getCommand("reloadpowers").setExecutor(new ReloadPowers());
@@ -89,7 +99,7 @@ public final class Chance extends JavaPlugin {
 
     public static void sendPrefixedMessage(CommandSender sender, String message) {
         sender.sendMessage(MiniMessage.miniMessage().deserialize(
-                "<gradient:green:dark_green>\uD83C\uDFB2 Chance </gradient><gray>" + message
+                "<gradient:dark_purple:light_purple>\uD83D\uDC8E Prism </gradient><gray>" + message
         ));
     }
 }

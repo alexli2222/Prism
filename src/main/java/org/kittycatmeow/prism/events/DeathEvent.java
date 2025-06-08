@@ -1,11 +1,11 @@
-package org.kittycatmeow.chance.events;
+package org.kittycatmeow.prism.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.kittycatmeow.chance.ItemManip;
+import org.kittycatmeow.prism.ItemManip;
 
 public class DeathEvent implements Listener {
     @EventHandler

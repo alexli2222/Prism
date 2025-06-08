@@ -1,9 +1,10 @@
-package org.kittycatmeow.chance;
+package org.kittycatmeow.prism;
 
 import com.destroystokyo.paper.ParticleBuilder;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.util.Vector;
 
 public class ParticleHelper {
     public static class Dust {
@@ -73,30 +74,43 @@ public class ParticleHelper {
             }
         }
 
-        public static void DrawCone(Location location, Color color, float size, double radius, double height, int stepsPerRing, int stepsPerCircle, int stepsPerCone, int countPerDisplay, boolean fill, boolean flip) {
+        public static void DrawCone(Location location, Color color, float size, double radius, double height,
+                                    int stepsPerRing, int stepsPerCircle, int stepsPerCone,
+                                    int countPerDisplay, boolean fill, boolean flip) {
             ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
                     .color(color, size)
                     .count(countPerDisplay);
 
-            double heightSpacing = height / stepsPerCone;
-            double radiusDecrement = radius / stepsPerCone;
-            Location layerLoc = location.clone();
+            Vector direction = flip ? new Vector(0, -1, 0) : new Vector(0, 1, 0);
+            Vector orthogonal1 = new Vector(1, 0, 0);
+            Vector orthogonal2 = new Vector(0, 0, 1);
 
-            for (int i = 0; i < stepsPerCone; i++) {
-                double currentRadius = flip ?
-                        radiusDecrement * i :
-                        radius - (radiusDecrement * i);
-                int adjustedStepsPerRing = (int) (stepsPerRing * (currentRadius / radius));
-                int adjustedStepsPerCircle = (int) (stepsPerCircle * (currentRadius / radius));
-                if (!fill) {
-                    DrawRing(layerLoc, builder, currentRadius, adjustedStepsPerRing);
-                } else {
-                    DrawCircle(layerLoc, color, size, currentRadius, adjustedStepsPerRing, adjustedStepsPerCircle, countPerDisplay);
+            for (int i = 0; i <= stepsPerCone; i++) {
+                double progress = (double) i / stepsPerCone;
+                double currentRadius = flip ? radius * (1 - progress) : radius * progress;
+                double yOffset = progress * height;
+
+                Location ringCenter = location.clone().add(direction.clone().multiply(yOffset));
+
+                for (int j = 0; j < stepsPerCircle; j++) {
+                    double angle = 2 * Math.PI * j / stepsPerCircle;
+                    double x = Math.cos(angle) * currentRadius;
+                    double z = Math.sin(angle) * currentRadius;
+
+                    Vector offset = orthogonal1.clone().multiply(x).add(orthogonal2.clone().multiply(z));
+                    Location particleLoc = ringCenter.clone().add(offset);
+
+                    if (fill) {
+                        for (int k = 0; k < stepsPerRing; k++) {
+                            double fillFactor = (double) k / stepsPerRing;
+                            Location innerLoc = ringCenter.clone().add(offset.clone().multiply(fillFactor));
+                            builder.location(innerLoc).spawn();
+                        }
+                    } else {
+                        builder.location(particleLoc).spawn();
+                    }
                 }
-                layerLoc.add(0, heightSpacing, 0);
             }
-
-            builder.location(layerLoc).spawn();
         }
 
         public static void DrawSphere(Location location, Color color, float size, double radius, int stepsPerRing, int stepsPerCircle, int stepsPerSphere, int countPerDisplay, boolean fill) {

@@ -1,7 +1,47 @@
-name: chance
+name: Prism
 version: '1.0.0'
-main: org.kittycatmeow.chance.Chance
+main: org.kittycatmeow.prism.Prism
 api-version: '1.21'
 load: STARTUP
 authors: [ _kittycatmeow ]
-description: Chance SMP Plugin
+description: Prism SMP Plugin
+commands:
+  prism:
+    description: Plugin information
+    usage: /prism
+  getrerollitem:
+    description: Get a certain number of reroll items
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /getrerollitem [count (default 1)]
+  givererollitem:
+    description: Give a certain number of reroll items to yourself or another player
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /givererollitem <player> [count (default 1)]
+  givererollall:
+    description: Give everyone a certain number of reroll items
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /givererollall [count (default 1)]
+  setpower:
+    description: Set the power of a player
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /setpower <player> <power>
+  reroll:
+    description: Gives a random power to yourself or another player
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /reroll [player (default self)]
+  reloadpowers:
+    description: Reloads the powers for all online players
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /reloadpowers
+  clearcooldowns:
+    description: Clears all the ability cooldowns for all players
+    permission: op
+    permission-message: You do not have permission to utilize this command
+    usage: /clearcooldowns
+    aliases: /clearcd

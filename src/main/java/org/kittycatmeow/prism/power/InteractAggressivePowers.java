@@ -1,4 +1,4 @@
-package org.kittycatmeow.chance.power;
+package org.kittycatmeow.prism.power;
 
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -9,9 +9,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.kittycatmeow.chance.Chance;
-import org.kittycatmeow.chance.ParticleHelper;
-import org.kittycatmeow.chance.Powers;
+import org.kittycatmeow.prism.Prism;
+import org.kittycatmeow.prism.ParticleHelper;
+import org.kittycatmeow.prism.Powers;
 
 public enum InteractAggressivePowers {
     NETHERS_BLESSING {
@@ -19,6 +19,7 @@ public enum InteractAggressivePowers {
         public void execute(PlayerInteractEvent event, AggressivePowers power) {
             Player p = event.getPlayer();
             Powers.sendBenefitMessage(p, "You feel yourself getting a blessing from the nether", power.name);
+            p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WITHER_SPAWN, 2, 1);
             p.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 160, 2));
             for (Player e : p.getWorld().getNearbyPlayers(p.getLocation(), 10)) {
                 if (e == p) continue;
@@ -35,6 +36,7 @@ public enum InteractAggressivePowers {
         public void execute(PlayerInteractEvent event, AggressivePowers power) {
             Player p = event.getPlayer();
             Powers.sendBenefitMessage(p, "The gods fight by your side", power.name);
+            p.getWorld().playSound(p.getLocation(), Sound.ITEM_TRIDENT_THUNDER, 2, 1);
             for (LivingEntity e : p.getWorld().getNearbyLivingEntities(p.getLocation(), 8)) {
                 if (e == p || e instanceof ArmorStand) continue;
                 if (e instanceof Player pe) {
@@ -55,11 +57,11 @@ public enum InteractAggressivePowers {
                             return;
                         }
                         e.setNoDamageTicks(0);
-                        e.damage(5, p);
+                        e.damage(4, p);
                         e.setNoDamageTicks(0);
                         counter++;
                     }
-                }.runTaskTimer(Chance.getPlugin(), 0L, 5L);
+                }.runTaskTimer(Prism.getPlugin(), 0L, 5L);
             }
         }
     }

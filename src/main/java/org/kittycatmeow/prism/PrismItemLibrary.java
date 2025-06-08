@@ -16,17 +16,17 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-public class ChanceItemLibrary {
+public class PrismItemLibrary {
     public ItemStack REROLL;
     public HashMap<Ids, ItemStack> lib = new HashMap<>();
 
-    public ChanceItemLibrary() {
+    public PrismItemLibrary() {
         registerRerollItem();
-        registerChanceItem(Material.LIGHT_BLUE_DYE, "<!italic><gradient:aqua:blue>Ice Power", Ids.ICE);
-        registerChanceItem(Material.ORANGE_DYE, "<!italic><gradient:gold:red>Fire Power", Ids.FIRE);
-        registerChanceItem(Material.GREEN_DYE, "<!italic><gradient:dark_green:dark_gray:dark_green>Earth Power", Ids.EARTH);
-        registerChanceItem(Material.BLUE_DYE, "<!italic><gradient:blue:dark_blue>Water Power", Ids.WATER);
-        registerChanceItem(Material.YELLOW_DYE, "<!italic><gradient:white:yellow>Electricity Power", Ids.ELECTRICITY);
+        registerPrismItem(Material.LIGHT_BLUE_DYE, "<!italic><gradient:aqua:blue>Ice Power", Ids.ICE);
+        registerPrismItem(Material.ORANGE_DYE, "<!italic><gradient:gold:red>Fire Power", Ids.FIRE);
+        registerPrismItem(Material.GREEN_DYE, "<!italic><gradient:dark_green:dark_gray:dark_green>Earth Power", Ids.EARTH);
+        registerPrismItem(Material.BLUE_DYE, "<!italic><gradient:blue:dark_blue>Water Power", Ids.WATER);
+        registerPrismItem(Material.YELLOW_DYE, "<!italic><gradient:white:yellow>Electricity Power", Ids.ELECTRICITY);
     }
 
     public enum Ids {
@@ -48,7 +48,7 @@ public class ChanceItemLibrary {
         lore.add(Component.empty());
         meta.lore(lore);
         meta.getPersistentDataContainer().set(
-                new NamespacedKey("chance", "reroll"),
+                new NamespacedKey("prism", "reroll"),
                 PersistentDataType.BOOLEAN,
                 true
         );
@@ -56,7 +56,7 @@ public class ChanceItemLibrary {
         REROLL = item;
     }
 
-    private void registerChanceItem(Material base, String name, Ids id) {
+    private void registerPrismItem(Material base, String name, Ids id) {
         PassivePowers passive = null;
         AggressivePowers aggressive = null;
         for (PassivePowers p : PassivePowers.values())
@@ -79,7 +79,7 @@ public class ChanceItemLibrary {
         meta.customName(MiniMessage.miniMessage().deserialize(name));
         PersistentDataContainer data = meta.getPersistentDataContainer();
         data.set(
-                new NamespacedKey("chance", "power"),
+                new NamespacedKey("prism", "power"),
                 org.bukkit.persistence.PersistentDataType.STRING,
                 id.toString()
         );

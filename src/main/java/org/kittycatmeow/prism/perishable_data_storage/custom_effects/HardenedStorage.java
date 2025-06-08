@@ -1,6 +1,6 @@
-package org.kittycatmeow.chance.perishable_data_storage.custom_effects;
+package org.kittycatmeow.prism.perishable_data_storage.custom_effects;
 
-import org.kittycatmeow.chance.perishable_data_storage.CustomEffectStorage;
+import org.kittycatmeow.prism.perishable_data_storage.CustomEffectStorage;
 
 import java.util.HashSet;
 import java.util.UUID;

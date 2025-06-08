@@ -1,17 +1,17 @@
-package org.kittycatmeow.chance.power;
+package org.kittycatmeow.prism.power;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.kittycatmeow.chance.perishable_data_storage.CooldownStorage;
-import org.kittycatmeow.chance.ItemManip;
-import org.kittycatmeow.chance.ChanceItemLibrary;
+import org.kittycatmeow.prism.perishable_data_storage.CooldownStorage;
+import org.kittycatmeow.prism.ItemManip;
+import org.kittycatmeow.prism.PrismItemLibrary;
 
 import java.util.UUID;
 
 public class AggressivePower {
-    public static void ExecuteWithCooldown(PlayerInteractEvent event, ChanceItemLibrary.Ids id, AggressivePowers base, InteractAggressivePowers power) {
+    public static void ExecuteWithCooldown(PlayerInteractEvent event, PrismItemLibrary.Ids id, AggressivePowers base, InteractAggressivePowers power) {
         ItemStack item = event.getItem();
         if (!ItemManip.isPower(item)) return;
         if (ItemManip.getPower(item) == id) {
@@ -32,7 +32,7 @@ public class AggressivePower {
             }
         }
     }
-    public static void ExecuteWithCooldown(PlayerInteractEntityEvent event, ChanceItemLibrary.Ids id, AggressivePowers base, InteractEntityAggressivePowers power) {
+    public static void ExecuteWithCooldown(PlayerInteractEntityEvent event, PrismItemLibrary.Ids id, AggressivePowers base, InteractEntityAggressivePowers power) {
         ItemStack item = event.getPlayer().getInventory().getItem(event.getHand());
         if (!ItemManip.isPower(item)) return;
         if (ItemManip.getPower(item) == id) {

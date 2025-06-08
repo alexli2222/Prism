@@ -1,11 +1,11 @@
-package org.kittycatmeow.chance;
+package org.kittycatmeow.prism;
 
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.kittycatmeow.chance.perishable_data_storage.CustomEffectStorage;
-import org.kittycatmeow.chance.perishable_data_storage.custom_effects.HardenedStorage;
-import org.kittycatmeow.chance.perishable_data_storage.custom_effects.StaticallyChargedStorage;
-import org.kittycatmeow.chance.perishable_data_storage.custom_effects.VulnerableStorage;
+import org.kittycatmeow.prism.perishable_data_storage.CustomEffectStorage;
+import org.kittycatmeow.prism.perishable_data_storage.custom_effects.HardenedStorage;
+import org.kittycatmeow.prism.perishable_data_storage.custom_effects.StaticallyChargedStorage;
+import org.kittycatmeow.prism.perishable_data_storage.custom_effects.VulnerableStorage;
 
 import java.util.UUID;
 
@@ -22,20 +22,20 @@ public class CustomEffectHandler {
                 storage.removeTarget(uuid);
                 SendExpiredEffectMessage(target, effect);
             }
-        }.runTaskLater(Chance.getPlugin(), ticks);
+        }.runTaskLater(Prism.getPlugin(), ticks);
     }
     public static boolean HasCustomEffect(CustomEffects effect, Player target) {
         CustomEffectStorage storage = effect.storage;
         return (storage.hasTarget(target.getUniqueId()));
     }
     public static void SendApplyEffectMessage(Player target, CustomEffects effect, int ticks) {
-        Chance.sendPrefixedMessage(
+        Prism.sendPrefixedMessage(
                 target,
                 "The "+effect.name+" effect has been applied to you for "+ticks/20+" seconds. "+effect.getDescription()
         );
     }
     public static void SendExpiredEffectMessage(Player target, CustomEffects effect) {
-        Chance.sendPrefixedMessage(
+        Prism.sendPrefixedMessage(
                 target,
                 "The "+effect.name+" effect has expired."
         );

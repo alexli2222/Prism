@@ -1,4 +1,4 @@
-package org.kittycatmeow.chance;
+package org.kittycatmeow.prism;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -20,8 +20,8 @@ public class ItemManip {
             return false;
         }
         PersistentDataContainer container = meta.getPersistentDataContainer();
-        for (ChanceItemLibrary.Ids id : ChanceItemLibrary.Ids.values()) {
-            if (Objects.equals(container.get(new NamespacedKey("chance", "power"),
+        for (PrismItemLibrary.Ids id : PrismItemLibrary.Ids.values()) {
+            if (Objects.equals(container.get(new NamespacedKey("prism", "power"),
                     PersistentDataType.STRING), id.toString())
             ) {
                 return true;
@@ -29,21 +29,21 @@ public class ItemManip {
         }
         return false;
     }
-    public static ChanceItemLibrary.Ids getPower(Player p) {
+    public static PrismItemLibrary.Ids getPower(Player p) {
         for (ItemStack item : p.getInventory().getContents()) {
             if (isPower(item)) {
                 PersistentDataContainer container = item.getItemMeta().getPersistentDataContainer();
-                String sid = container.get(new NamespacedKey("chance", "power"), PersistentDataType.STRING);
-                return ChanceItemLibrary.Ids.valueOf(sid);
+                String sid = container.get(new NamespacedKey("prism", "power"), PersistentDataType.STRING);
+                return PrismItemLibrary.Ids.valueOf(sid);
             }
         }
         return null;
     }
-    public static ChanceItemLibrary.Ids getPower(ItemStack item) {
+    public static PrismItemLibrary.Ids getPower(ItemStack item) {
         if (isPower(item)) {
             PersistentDataContainer container = item.getItemMeta().getPersistentDataContainer();
-            String sid = container.get(new NamespacedKey("chance", "power"), PersistentDataType.STRING);
-            return ChanceItemLibrary.Ids.valueOf(sid);
+            String sid = container.get(new NamespacedKey("prism", "power"), PersistentDataType.STRING);
+            return PrismItemLibrary.Ids.valueOf(sid);
         }
         return null;
     }
@@ -62,28 +62,28 @@ public class ItemManip {
     }
     public static void addPower(Player p) {
         try {
-            ChanceItemLibrary.Ids id = ChanceItemLibrary.Ids.valueOf(
-                    Chance.getDataHandler().get(p.getUniqueId().toString())
+            PrismItemLibrary.Ids id = PrismItemLibrary.Ids.valueOf(
+                    Prism.getDataHandler().get(p.getUniqueId().toString())
             );
-            p.getInventory().addItem(Chance.getItemLibrary().lib.get(id));
+            p.getInventory().addItem(Prism.getItemLibrary().lib.get(id));
         } catch (Exception ignored) {
         }
     }
     public static void addPower(Player p, int slot) {
         try {
-            ChanceItemLibrary.Ids id = ChanceItemLibrary.Ids.valueOf(
-                    Chance.getDataHandler().get(p.getUniqueId().toString())
+            PrismItemLibrary.Ids id = PrismItemLibrary.Ids.valueOf(
+                    Prism.getDataHandler().get(p.getUniqueId().toString())
             );
-            p.getInventory().setItem(slot, Chance.getItemLibrary().lib.get(id));
+            p.getInventory().setItem(slot, Prism.getItemLibrary().lib.get(id));
         } catch (Exception ignored) {
         }
     }
     public static void addPowerInOffhand(Player p) {
         try {
-            ChanceItemLibrary.Ids id = ChanceItemLibrary.Ids.valueOf(
-                    Chance.getDataHandler().get(p.getUniqueId().toString())
+            PrismItemLibrary.Ids id = PrismItemLibrary.Ids.valueOf(
+                    Prism.getDataHandler().get(p.getUniqueId().toString())
             );
-            p.getInventory().setItemInOffHand(Chance.getItemLibrary().lib.get(id));
+            p.getInventory().setItemInOffHand(Prism.getItemLibrary().lib.get(id));
         } catch (Exception ignored) {
         }
     }

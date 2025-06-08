@@ -1,4 +1,4 @@
-package org.kittycatmeow.chance.power;
+package org.kittycatmeow.prism.power;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -8,16 +8,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.kittycatmeow.chance.CustomEffectHandler;
-import org.kittycatmeow.chance.ParticleHelper;
-import org.kittycatmeow.chance.Powers;
-import org.kittycatmeow.chance.ChanceItemLibrary;
+import org.kittycatmeow.prism.CustomEffectHandler;
+import org.kittycatmeow.prism.ParticleHelper;
+import org.kittycatmeow.prism.Powers;
+import org.kittycatmeow.prism.PrismItemLibrary;
 
 import java.util.List;
 
 public enum PassivePowers {
     GLACIAL_HEALING(
-            ChanceItemLibrary.Ids.ICE,
+            PrismItemLibrary.Ids.ICE,
             "<aqua>Glacial Healing</aqua>",
             "Heals you for 25% of your max health, then gain regeneration 3 for 5 seconds. Also applies the "+CustomEffectHandler.CustomEffects.HARDENED.name+" effect for 10 seconds. "+CustomEffectHandler.CustomEffects.HARDENED.getDescription(),
             20000L
@@ -33,7 +33,7 @@ public enum PassivePowers {
         }
     },
     SCORCHED_SKIN(
-            ChanceItemLibrary.Ids.FIRE,
+            PrismItemLibrary.Ids.FIRE,
             "<gold>Scorched Skin</gold>",
             "Heals you for 20% of your max health if you are on fire, then gain fire resistance for 30 seconds",
             30000L
@@ -50,7 +50,7 @@ public enum PassivePowers {
         }
     },
     TERRASHIELD (
-            ChanceItemLibrary.Ids.EARTH,
+            PrismItemLibrary.Ids.EARTH,
             "<dark_green>Terrashield</dark_green>",
             "Obtain resistance 3 for 10 seconds.",
             40000L
@@ -69,7 +69,7 @@ public enum PassivePowers {
         }
     },
     REFRESH (
-            ChanceItemLibrary.Ids.WATER,
+            PrismItemLibrary.Ids.WATER,
             "<green>Refresh</green>",
                     "Obtain regeneration 2 and health boost 2 for 15 seconds.",
                     30000L
@@ -84,7 +84,7 @@ public enum PassivePowers {
         }
     },
     STATIC_SHIELD (
-            ChanceItemLibrary.Ids.ELECTRICITY,
+            PrismItemLibrary.Ids.ELECTRICITY,
             "<yellow>Static Shield</yellow>",
             "Obtain resistance 1 for 10 seconds, and the "+ CustomEffectHandler.CustomEffects.STATICALLY_CHARGED.name+" effect for 15 seconds. "+CustomEffectHandler.CustomEffects.STATICALLY_CHARGED.getDescription(),
             35000L
@@ -100,11 +100,11 @@ public enum PassivePowers {
         }
     },
     ;
-    public final ChanceItemLibrary.Ids id;
+    public final PrismItemLibrary.Ids id;
     public final String name;
     public final String description;
     public final long cooldown;
-    PassivePowers(ChanceItemLibrary.Ids id, String name, String description, long cooldown) {
+    PassivePowers(PrismItemLibrary.Ids id, String name, String description, long cooldown) {
         this.id = id;
         this.name = name;
         this.description = description;

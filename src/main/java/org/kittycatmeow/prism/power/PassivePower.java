@@ -1,14 +1,14 @@
-package org.kittycatmeow.chance.power;
+package org.kittycatmeow.prism.power;
 
 import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.kittycatmeow.chance.perishable_data_storage.CooldownStorage;
-import org.kittycatmeow.chance.ItemManip;
-import org.kittycatmeow.chance.ChanceItemLibrary;
+import org.kittycatmeow.prism.perishable_data_storage.CooldownStorage;
+import org.kittycatmeow.prism.ItemManip;
+import org.kittycatmeow.prism.PrismItemLibrary;
 
 import java.util.UUID;
 
 public class PassivePower {
-    public static void ExecuteWithCooldown(PlayerToggleSneakEvent event, ChanceItemLibrary.Ids id, PassivePowers power) {
+    public static void ExecuteWithCooldown(PlayerToggleSneakEvent event, PrismItemLibrary.Ids id, PassivePowers power) {
         if (event.isSneaking())
             if (ItemManip.getPower(event.getPlayer()) == id) {
                 long cooldown = power.cooldown;

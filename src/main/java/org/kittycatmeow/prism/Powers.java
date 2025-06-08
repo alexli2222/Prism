@@ -1,5 +1,6 @@
-package org.kittycatmeow.chance;
+package org.kittycatmeow.prism;
 
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -33,18 +34,18 @@ public class Powers {
         return word.replaceAll("<[^>]*>", "").length();
     }
     public static void sendBenefitMessage(Player p, String message, String abilityName) {
-        Chance.sendPrefixedMessage(p, "<green>"+message+" ("+abilityName+").</green>");
+        Prism.sendPrefixedMessage(p, "<green>"+message+" ("+abilityName+").</green>");
     }
     public static void sendHarmMessage(Player p, String message, String abilityName) {
-        Chance.sendPrefixedMessage(p, "<red>"+message+" ("+abilityName+").</red>");
+        Prism.sendPrefixedMessage(p, "<red>"+message+" ("+abilityName+").</red>");
     }
-    public static void setPower(Player p, ChanceItemLibrary.Ids id) {
-        Chance.getDataHandler().set(p.getUniqueId().toString(), id.toString());
+    public static void setPower(Player p, PrismItemLibrary.Ids id) {
+        Prism.getDataHandler().set(p.getUniqueId().toString(), id.toString());
         ItemManip.replacePower(p);
     }
-    public static ChanceItemLibrary.Ids randomPower(Player p) {
-        ChanceItemLibrary.Ids[] values = ChanceItemLibrary.Ids.values();
-        ChanceItemLibrary.Ids randomId;
+    public static PrismItemLibrary.Ids randomPower(Player p) {
+        PrismItemLibrary.Ids[] values = PrismItemLibrary.Ids.values();
+        PrismItemLibrary.Ids randomId;
         do {
             randomId = values[new Random().nextInt(values.length)];
         } while (randomId == ItemManip.getPower(p));
@@ -53,8 +54,16 @@ public class Powers {
     }
     public static void giveRerollItem(Player p, int count) {
         for (int i = 0; i < count; i++) {
-            p.getInventory().addItem(Chance.getItemLibrary().REROLL);
+            p.getInventory().addItem(Prism.getItemLibrary().REROLL);
         }
-        Chance.sendPrefixedMessage(p, "You have been given " + count + " reroll item"+(count == 1 ? "" : "s"));
+        Prism.sendPrefixedMessage(p, "You have been given " + count + " reroll item"+(count == 1 ? "" : "s"));
+    }
+    public static void sendRerollMessage(Player p, PrismItemLibrary.Ids id) {
+        Prism.sendPrefixedMessage(p,
+                "Your power has been rerolled, you now have the " +
+                        MiniMessage.miniMessage().serialize(
+                                Prism.getItemLibrary().lib.get(id).getItemMeta().customName()
+                        )+'!'
+        );
     }
 }

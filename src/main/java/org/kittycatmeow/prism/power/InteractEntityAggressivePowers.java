@@ -1,4 +1,4 @@
-package org.kittycatmeow.chance.power;
+package org.kittycatmeow.prism.power;
 
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -9,10 +9,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.kittycatmeow.chance.Chance;
-import org.kittycatmeow.chance.CustomEffectHandler;
-import org.kittycatmeow.chance.ParticleHelper;
-import org.kittycatmeow.chance.Powers;
+import org.kittycatmeow.prism.Prism;
+import org.kittycatmeow.prism.CustomEffectHandler;
+import org.kittycatmeow.prism.ParticleHelper;
+import org.kittycatmeow.prism.Powers;
 
 public enum InteractEntityAggressivePowers {
     PERMAFROST {
@@ -68,7 +68,7 @@ public enum InteractEntityAggressivePowers {
                     if (counter >= 30) {
                         this.cancel();
                         e.setNoDamageTicks(0);
-                        e.damage(e.getHealth() + 15, p);
+                        e.damage(e.getHealth() + 10, p);
                         e.setNoDamageTicks(0);
                         return;
                     }
@@ -76,10 +76,10 @@ public enum InteractEntityAggressivePowers {
                     originalLocation.setPitch(e.getLocation().getPitch());
                     e.teleport(originalLocation);
                     e.getWorld().playSound(e.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_HURT, 1, 1);
-                    ParticleHelper.Dust.DrawCone(e.getLocation().add(0, -0.5, 0), Color.BLUE, 0.5f, 3, 3, 10, 40, 40, 1, false, true);
+                    ParticleHelper.Dust.DrawCone(e.getLocation().add(0, 2, 0), Color.BLUE, 0.5f, 3, 3, 80, 80, 40, 1, false, true);
                     counter++;
                 }
-            }.runTaskTimer(Chance.getPlugin(), 0L, 2L);
+            }.runTaskTimer(Prism.getPlugin(), 0L, 2L);
         }
     }
     ;

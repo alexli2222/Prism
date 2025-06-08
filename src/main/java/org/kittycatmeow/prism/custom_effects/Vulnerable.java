@@ -1,10 +1,10 @@
-package org.kittycatmeow.chance.custom_effects;
+package org.kittycatmeow.prism.custom_effects;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.kittycatmeow.chance.CustomEffectHandler;
+import org.kittycatmeow.prism.CustomEffectHandler;
 
 public class Vulnerable implements Listener {
     @EventHandler

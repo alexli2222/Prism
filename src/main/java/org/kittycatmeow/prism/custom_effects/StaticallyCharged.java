@@ -1,4 +1,4 @@
-package org.kittycatmeow.chance.custom_effects;
+package org.kittycatmeow.prism.custom_effects;
 
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
@@ -8,8 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.kittycatmeow.chance.CustomEffectHandler;
-import org.kittycatmeow.chance.ParticleHelper;
+import org.kittycatmeow.prism.CustomEffectHandler;
+import org.kittycatmeow.prism.ParticleHelper;
 
 public class StaticallyCharged implements Listener {
     @EventHandler

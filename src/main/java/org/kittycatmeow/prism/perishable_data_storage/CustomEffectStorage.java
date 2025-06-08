@@ -1,4 +1,4 @@
-package org.kittycatmeow.chance.perishable_data_storage;
+package org.kittycatmeow.prism.perishable_data_storage;
 
 import java.util.UUID;
 

@@ -1,5 +1,5 @@
 name: Prism
-version: '1.2.0'
+version: '1.2.1'
 main: org.kittycatmeow.prism.Prism
 api-version: '1.21'
 load: STARTUP

@@ -16,7 +16,7 @@ public final class Prism extends JavaPlugin {
     private static FirstJoinDataHandler firstJoinDataHandler;
     private static PrismItemLibrary itemLibrary;
 
-    public static String VERSION = "1.2.0";
+    public static String VERSION = "1.2.1";
 
     @Override
     public void onEnable() {

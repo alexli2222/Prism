@@ -1,0 +1,7 @@
+name: chance
+version: '1.0.0'
+main: org.kittycatmeow.chance.Chance
+api-version: '1.21'
+load: STARTUP
+authors: [ _kittycatmeow ]
+description: Chance SMP Plugin

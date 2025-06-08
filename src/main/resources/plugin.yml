@@ -1,5 +1,5 @@
 name: Prism
-version: '1.2.1'
+version: '1.2.2'
 main: org.kittycatmeow.prism.Prism
 api-version: '1.21'
 load: STARTUP
@@ -14,42 +14,42 @@ commands:
     usage: /fix
   getrerollitem:
     description: Get a certain number of reroll items
-    permission: op
+    permission: prism.getrerollitem
     permission-message: You do not have permission to utilize this command
     usage: /getrerollitem [count (default 1)]
   givererollitem:
     description: Give a certain number of reroll items to yourself or another player
-    permission: op
+    permission: prism.givererollitem
     permission-message: You do not have permission to utilize this command
     usage: /givererollitem <player> [count (default 1)]
   givererollall:
     description: Give everyone a certain number of reroll items
-    permission: op
+    permission: prism.givererollall
     permission-message: You do not have permission to utilize this command
     usage: /givererollall [count (default 1)]
   setpower:
     description: Set the power of a player
-    permission: op
+    permission: prism.setpower
     permission-message: You do not have permission to utilize this command
     usage: /setpower <player> <power>
   reroll:
     description: Gives a random power to yourself or another player
-    permission: op
+    permission: prism.reroll
     permission-message: You do not have permission to utilize this command
     usage: /reroll [player (default self)]
   rerollall:
     description: Gives a random power to all online players
-    permission: op
+    permission: prism.rerollall
     permission-message: You do not have permission to utilize this command
     usage: /rerollall
   reloadpowers:
     description: Reloads the powers for all online players
-    permission: op
+    permission: prism.reloadpowers
     permission-message: You do not have permission to utilize this command
     usage: /reloadpowers
   clearcooldowns:
     description: Clears all the ability cooldowns for all players
-    permission: op
+    permission: prism.clearcooldowns
     permission-message: You do not have permission to utilize this command
     usage: /clearcooldowns
     aliases: /clearcd

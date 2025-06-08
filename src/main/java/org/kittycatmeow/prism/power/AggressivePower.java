@@ -1,6 +1,7 @@
 package org.kittycatmeow.prism.power;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 public class AggressivePower {
     public static void ExecuteWithCooldown(PlayerInteractEvent event, PrismItemLibrary.Ids id, AggressivePowers base, InteractAggressivePowers power) {
+        if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         ItemStack item = event.getItem();
         if (!ItemManip.isPower(item)) return;
         if (ItemManip.getPower(item) == id) {

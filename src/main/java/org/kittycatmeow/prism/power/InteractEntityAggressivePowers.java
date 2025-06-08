@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import org.kittycatmeow.prism.Prism;
 import org.kittycatmeow.prism.CustomEffectHandler;
 import org.kittycatmeow.prism.ParticleHelper;
@@ -60,24 +61,26 @@ public enum InteractEntityAggressivePowers {
             e.getWorld().playSound(e.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 2, 1);
             e.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 60, 2));
             e.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 60, 2));
-            Location originalLocation = e.getLocation();
             new BukkitRunnable() {
                 int counter = 0;
                 @Override
                 public void run() {
-                    if (counter >= 40) {
+                    if (counter >= 80) {
                         this.cancel();
                         e.setNoDamageTicks(0);
                         e.damage(2* e.getHealth() / 3 + 10, p);
                         e.setNoDamageTicks(0);
                         return;
                     }
-                    e.teleport(originalLocation);
-                    e.getWorld().playSound(e.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_HURT, 1, 1);
-                    ParticleHelper.Dust.DrawCone(e.getLocation(), Color.BLUE, 0.5f, 3, 3, 1, false, false, false);
+                    e.setVelocity(new Vector(0, 0, 0));
+                    if (counter%8 == 0) {
+                        e.getWorld().playSound(e.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_HURT, 2, 0.5f);
+                        e.getWorld().playSound(e.getLocation(), Sound.ENTITY_PLAYER_SPLASH_HIGH_SPEED, 2, 0.5f);
+                        ParticleHelper.Dust.DrawCone(e.getLocation(), Color.BLUE, 0.5f, 3, 3, 1, false, false, false);
+                    }
                     counter++;
                 }
-            }.runTaskTimer(Prism.getPlugin(), 0L, 2L);
+            }.runTaskTimer(Prism.getPlugin(), 0L, 1L);
         }
     }
     ;

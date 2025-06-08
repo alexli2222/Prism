@@ -68,5 +68,8 @@ public class CustomEffectHandler {
         public String getDescription() {
             return "While "+name+", "+description;
         }
+        public CustomEffectStorage getStorage() {
+            return storage;
+        }
     }
 }

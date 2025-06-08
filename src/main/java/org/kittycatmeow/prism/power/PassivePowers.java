@@ -98,7 +98,9 @@ public enum PassivePowers {
             p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 300, 0));
             CustomEffectHandler.AddCustomEffect(CustomEffectHandler.CustomEffects.STATICALLY_CHARGED, p, 200);
             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 2, 0.5f);
-            ParticleHelper.Dust.DrawSphere(p.getLocation(), Color.YELLOW, 0.5f, 3, 1, false);
+            ParticleHelper.Dust.DrawRing(p.getLocation().add(0, 0.8, 0), Color.YELLOW, 0.5f, 3, 1);
+            ParticleHelper.Dust.DrawRing(p.getLocation().add(0, 1, 0), Color.YELLOW, 0.5f, 3, 1);
+            ParticleHelper.Dust.DrawRing(p.getLocation().add(0, 0.8, 0), Color.YELLOW, 0.5f, 3, 1);
         }
     },
     ;

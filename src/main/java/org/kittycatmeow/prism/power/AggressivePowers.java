@@ -18,8 +18,8 @@ public enum AggressivePowers {
             PrismItemLibrary.Ids.FIRE,
             AggressivePowerTypes.INTERACT,
             "<red>Nether's Blessing</red>",
-            "Gain strength 3 for 7 seconds. Remove fire resistance from all players in radius 10, then set them on fire for 30 seconds.",
-            60000L
+            "Gain strength 3 and speed 3 for 5 seconds. Remove fire resistance from all players in radius 10, then set them on fire for 20 seconds.",
+            45000L
     ),
     MOUNTAINS_WEIGHT (
             PrismItemLibrary.Ids.EARTH,
@@ -32,14 +32,14 @@ public enum AggressivePowers {
             PrismItemLibrary.Ids.WATER,
             AggressivePowerTypes.INTERACTPLAYER,
             "<blue>Whirlpool</blue>",
-            "Traps the clicked player in a whirlpool for 4 seconds, then damage them for 15 + their current health / 2",
-            45000L
+            "Traps the clicked player in a whirlpool for 4 seconds, then damage them for 10 plus two thirds of their current health",
+            60000L
     ),
     CURSE_OF_ZEUS (
             PrismItemLibrary.Ids.ELECTRICITY,
             AggressivePowerTypes.INTERACT,
             "<dark_purple>Curse of Zeus</dark_purple>",
-            "Strikes lightning, dealing 15 immediate damage to any living entity within 8 blocks while applying blindness, nausea, and weakness 2 to them for 5 seconds. Also damage the living entities by 4 every 0.25 seconds for 2 seconds",
+            "Strikes lightning, dealing 15 immediate damage to any living entity within 8 blocks while applying blindness, nausea, and weakness 2 to them for 5 seconds. Also damage the living entities by 6 every 0.25 seconds for 2 seconds",
             40000L
     )
     ;

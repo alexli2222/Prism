@@ -68,7 +68,7 @@ public enum InteractEntityAggressivePowers {
                     if (counter >= 40) {
                         this.cancel();
                         e.setNoDamageTicks(0);
-                        e.damage(e.getHealth() / 2 + 15, p);
+                        e.damage(2* e.getHealth() / 3 + 10, p);
                         e.setNoDamageTicks(0);
                         return;
                     }

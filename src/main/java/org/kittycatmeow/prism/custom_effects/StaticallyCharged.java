@@ -19,7 +19,7 @@ public class StaticallyCharged implements Listener {
         if (CustomEffectHandler.HasCustomEffect(CustomEffectHandler.CustomEffects.STATICALLY_CHARGED, p)) {
             d.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 40, 1));
             d.setNoDamageTicks(0);
-            d.damage(event.getDamage() * 0.25, p);
+            d.damage(event.getDamage() * 0.35, p);
             d.setNoDamageTicks(0);
             ParticleHelper.DrawLine(p.getLocation().add(0, 1, 0), d.getLocation().add(0, 1, 0), Particle.ELECTRIC_SPARK, (int) (10 * p.getLocation().distance(d.getLocation())), 5);
         }

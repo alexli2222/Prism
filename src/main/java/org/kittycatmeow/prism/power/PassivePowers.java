@@ -35,7 +35,7 @@ public enum PassivePowers {
     SCORCHED_SKIN(
             PrismItemLibrary.Ids.FIRE,
             "<gold>Scorched Skin</gold>",
-            "Heals you for 20% of your max health if you are on fire, then gain fire resistance for 30 seconds",
+            "Heals you for 20% of your max health if you are on fire, then gain fire resistance for 30 seconds.",
             30000L
     ) {
         @Override
@@ -63,7 +63,7 @@ public enum PassivePowers {
             p.getWorld().playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 2, 0.5f);
             Location location = p.getLocation().add(0, 0.5, 0);
             for (int i = 0; i < 11; i++) {
-                ParticleHelper.Dust.DrawRing(location, Color.fromRGB(55, 75, 60), 0.5f, 2, 50, 1);
+                ParticleHelper.Dust.DrawRing(location, Color.fromRGB(55, 75, 60), 0.5f, 2, 1);
                 location.add(0, 0.1, 0);
             }
         }
@@ -95,8 +95,8 @@ public enum PassivePowers {
             Powers.sendBenefitMessage(p, "The power of electricity runs through you", name);
             p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 300, 0));
             CustomEffectHandler.AddCustomEffect(CustomEffectHandler.CustomEffects.STATICALLY_CHARGED, p, 200);
-            ParticleHelper.Dust.DrawSphere(p.getLocation(), Color.YELLOW, 0.5f, 3, 100, 100, 50, 1, false);
             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 2, 0.5f);
+            ParticleHelper.Dust.DrawSphere(p.getLocation(), Color.YELLOW, 0.5f, 3, 1, false);
         }
     },
     ;

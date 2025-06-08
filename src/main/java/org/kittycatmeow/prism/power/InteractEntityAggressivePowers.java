@@ -31,7 +31,7 @@ public enum InteractEntityAggressivePowers {
             e.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 60, 9));
             e.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 0));
             e.getWorld().playSound(e.getLocation(), Sound.BLOCK_GLASS_BREAK, 2, 1);
-            ParticleHelper.Dust.DrawCylinder(e.getLocation().add(0, -1, 0), Color.AQUA, 0.5f, 1.5, 4, 20, 20, 40, 1, false);
+            ParticleHelper.Dust.DrawCylinder(e.getLocation().add(0, -1, 0), Color.AQUA, 0.5f, 1.5, 4, 1, false);
         }
     },
     MOUNTAINS_WEIGHT {
@@ -46,7 +46,7 @@ public enum InteractEntityAggressivePowers {
             e.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 2));
             e.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 2));
             CustomEffectHandler.AddCustomEffect(CustomEffectHandler.CustomEffects.VULNERABLE, e, 300);
-            ParticleHelper.DrawRing(e.getLocation().add(0, 1, 0), Particle.EXPLOSION, 2, 20, 2);
+            ParticleHelper.DrawRing(e.getLocation().add(0, 1, 0), Particle.EXPLOSION, 2, 1);
             ParticleHelper.Dust.DrawLine(e.getLocation(), e.getLocation().add(0, 10, 0), Color.GRAY, 2, 80, 2);
         }
     },
@@ -68,7 +68,7 @@ public enum InteractEntityAggressivePowers {
                     if (counter >= 30) {
                         this.cancel();
                         e.setNoDamageTicks(0);
-                        e.damage(e.getHealth() + 10, p);
+                        e.damage(e.getHealth() / 2 + 15, p);
                         e.setNoDamageTicks(0);
                         return;
                     }
@@ -76,7 +76,7 @@ public enum InteractEntityAggressivePowers {
                     originalLocation.setPitch(e.getLocation().getPitch());
                     e.teleport(originalLocation);
                     e.getWorld().playSound(e.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_HURT, 1, 1);
-                    ParticleHelper.Dust.DrawCone(e.getLocation().add(0, 2, 0), Color.BLUE, 0.5f, 3, 3, 80, 80, 40, 1, false, true);
+                    ParticleHelper.Dust.DrawCone(e.getLocation(), Color.BLUE, 0.5f, 3, 3, 1, false, false, false);
                     counter++;
                 }
             }.runTaskTimer(Prism.getPlugin(), 0L, 2L);

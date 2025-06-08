@@ -4,62 +4,147 @@ import com.destroystokyo.paper.ParticleBuilder;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.util.Vector;
 
 public class ParticleHelper {
     public static class Dust {
-        public static void DrawCircle(Location location, Color color, float size, double radius, int stepsPerRing, int stepsPerCircle, int countPerDisplay) {
+        public static void DrawCircle(Location location, Color color, float size, double radius, int countPerDisplay) {
             ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
                     .color(color, size)
                     .count(countPerDisplay);
+            DrawCircle(location, builder, radius);
+        }
 
-            for (int ring = 0; ring < stepsPerCircle; ring++) {
-                double currentRadius = radius * ((double) ring / stepsPerCircle);
-                int adjustedSteps = (int) (stepsPerRing * (1 + ring * 0.5));
-                DrawRing(location, builder, currentRadius, adjustedSteps);
+        private static void DrawCircle(Location location, ParticleBuilder builder, double radius) {
+            //five rings per block
+            double total = radius * 5;
+            double increment = radius / total;
+            //loops for each ring
+            for (double r = 0; r < total; r += increment) {
+                //here r is the current radius that is being drawn
+                DrawRing(location, builder, r);
             }
         }
 
-        public static void DrawRing(Location location, Color color, float size, double radius, int stepsPerRing, int countPerDisplay) {
+        public static void DrawRing(Location location, Color color, float size, double radius, int countPerDisplay) {
             ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
                     .color(color, size)
                     .count(countPerDisplay);
-            DrawRing(location, builder, radius, stepsPerRing);
+            DrawRing(location, builder, radius);
         }
 
-        private static void DrawRing(Location location, ParticleBuilder builder, double radius, int stepsPerRing) {
-            double angleIncrement = 2 * Math.PI / stepsPerRing;
-            for (int step = 0; step < stepsPerRing; step++) {
-                double angle = step * angleIncrement;
-                builder.location(location.clone().add(
-                        radius * Math.cos(angle),
-                        0,
-                        radius * Math.sin(angle)
-                )).spawn();
+        private static void DrawRing(Location location, ParticleBuilder builder, double radius) {
+            //if r is 0 just draw a point
+            if (radius == 0) {
+                builder.location(location).spawn();
+                return;
+            }
+            //circumference scale linearly with radius, for unit circle circumference is ~3 blocks, so using 20 particles per increase in radius
+            double total = radius * 20;
+            double increment = (2 * Math.PI) / total;
+            //loops until creates a full circle
+            for (double angle = 0; angle < total; angle += increment) {
+                //use trig to determine point
+                Location newloc = location.clone().add(radius * Math.sin(angle), 0, radius * Math.cos(angle));
+                //spawn particles
+                builder.location(newloc).spawn();
             }
         }
 
-        public static void DrawCylinder(Location location, Color color, float size, double radius, double height, int stepsPerRing, int stepsPerCircle, int stepsPerCylinder, int countPerDisplay, boolean fill) {
+        public static void DrawCylinder(Location location, Color color, float size, double radius, double height, int countPerDisplay, boolean fill) {
             ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
                     .color(color, size)
                     .count(countPerDisplay);
+            DrawCylinder(location, builder, radius, height, fill);
+        }
 
-            DrawCircle(location, color, size, radius, stepsPerRing, stepsPerCircle, countPerDisplay);
-
-            double ringSpacing = height / (stepsPerCylinder - 1);
-            Location layerLoc = location.clone();
-
-            for (int i = 1; i < stepsPerCylinder - 1; i++) {
-                layerLoc.add(0, ringSpacing, 0);
-                if (!fill) {
-                    DrawRing(layerLoc, builder, radius, (int) (stepsPerRing*radius*2));
+        private static void DrawCylinder(Location location, ParticleBuilder builder, double radius, double height, boolean fill) {
+            //five circles/rings per block of height
+            int total = (int) (height * 5);
+            double increment = height / total;
+            //start with 1 circle at bottom
+            DrawCircle(location, builder, radius);
+            location.add(0, increment, 0);
+            //loops for each circle/ring, depending on fill, ignores first and last as they are always circle
+            for (int i = 1; i < total - 1; i++) {
+                if (fill) {
+                    DrawCircle(location, builder, radius);
                 } else {
-                    DrawCircle(layerLoc, color, size, radius, stepsPerRing, stepsPerCircle, countPerDisplay);
+                    DrawRing(location, builder, radius);
                 }
+                location.add(0, increment, 0);
             }
-
-            DrawCircle(location.clone().add(0, height, 0), color, size, radius, stepsPerRing, stepsPerCircle, countPerDisplay);
+            DrawCircle(location, builder, radius);
         }
+
+        public static void DrawCone(Location location, Color color, float size, double radius, double height, int countPerDisplay, boolean fill, boolean filltop, boolean flip) {
+            ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
+                    .color(color, size)
+                    .count(countPerDisplay);
+            DrawCone(location, builder, radius, height, fill, filltop, flip);
+        }
+
+        private static void DrawCone(Location location, ParticleBuilder builder, double radius, double height, boolean fill, boolean filltop, boolean flip) {
+            //too weird wtf
+            if (fill && !filltop) return;
+            //five rings/circle per block, depending on fill
+            double total = height * 10;
+            double inch = height / total * (flip ? -1 : 1); //if flip, multiply height increment by negative 1 to make it go down instead of up
+            double incr = radius / total;
+            //starts at vertex, goes up
+            for (double currentr = 0; currentr < height - incr /*saves last, could be circle if filltop*/; currentr += incr) {
+                //draws circle or ring depending on fill
+                if (fill) {
+                    DrawCircle(location, builder, currentr);
+                } else {
+                    DrawRing(location, builder, currentr);
+                }
+                //moves up in terms of height
+                location.add(0, inch, 0);
+            }
+            //draw last circle or ring
+            if (filltop) {
+                DrawCircle(location, builder, radius);
+            } else {
+                DrawRing(location, builder, radius);
+            }
+        }
+
+        public static void DrawSphere(Location location, Color color, float size, double radius, int countPerDisplay, boolean fill) {
+            ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
+                    .color(color, size)
+                    .count(countPerDisplay);
+            DrawSphere(location, builder, radius, fill);
+        }
+
+        private static void DrawSphere(Location location, ParticleBuilder builder, double radius, boolean fill) {
+            //i dont want to explain this but basically turn the equation of a sphere into circle equation by fixing y (stacking circles on vertical axis)
+            double total = radius * 5; // per hemisphere
+            double increment = radius / total;
+            //top hemisphere
+            for (int i = 0; i < total; i++) {
+                double dy = i * increment;
+                double r = Math.sqrt(radius * radius - dy * dy);
+                if (fill) {
+                    DrawCircle(location, builder, r);
+                } else {
+                    DrawRing(location, builder, r);
+                }
+                location.add(0, increment, 0);
+            }
+            location.subtract(0, radius, 0);
+            //bottom hemisphere
+            for (int i = 0; i < total; i++) {
+                double dy = i * increment;
+                double r = Math.sqrt(radius * radius - dy * dy);
+                if (fill) {
+                    DrawCircle(location, builder, r);
+                } else {
+                    DrawRing(location, builder, r);
+                }
+                location.subtract(0, increment, 0);
+            }
+        }
+
         public static void DrawLine(Location start, Location end, Color color, float size, int steps, int countPerDisplay) {
             ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
                     .color(color, size)
@@ -73,86 +158,12 @@ public class ParticleHelper {
                 current.add(deltaX, deltaY, deltaZ);
             }
         }
-
-        public static void DrawCone(Location location, Color color, float size, double radius, double height,
-                                    int stepsPerRing, int stepsPerCircle, int stepsPerCone,
-                                    int countPerDisplay, boolean fill, boolean flip) {
-            ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
-                    .color(color, size)
-                    .count(countPerDisplay);
-
-            Vector direction = flip ? new Vector(0, -1, 0) : new Vector(0, 1, 0);
-            Vector orthogonal1 = new Vector(1, 0, 0);
-            Vector orthogonal2 = new Vector(0, 0, 1);
-
-            for (int i = 0; i <= stepsPerCone; i++) {
-                double progress = (double) i / stepsPerCone;
-                double currentRadius = flip ? radius * (1 - progress) : radius * progress;
-                double yOffset = progress * height;
-
-                Location ringCenter = location.clone().add(direction.clone().multiply(yOffset));
-
-                for (int j = 0; j < stepsPerCircle; j++) {
-                    double angle = 2 * Math.PI * j / stepsPerCircle;
-                    double x = Math.cos(angle) * currentRadius;
-                    double z = Math.sin(angle) * currentRadius;
-
-                    Vector offset = orthogonal1.clone().multiply(x).add(orthogonal2.clone().multiply(z));
-                    Location particleLoc = ringCenter.clone().add(offset);
-
-                    if (fill) {
-                        for (int k = 0; k < stepsPerRing; k++) {
-                            double fillFactor = (double) k / stepsPerRing;
-                            Location innerLoc = ringCenter.clone().add(offset.clone().multiply(fillFactor));
-                            builder.location(innerLoc).spawn();
-                        }
-                    } else {
-                        builder.location(particleLoc).spawn();
-                    }
-                }
-            }
-        }
-
-        public static void DrawSphere(Location location, Color color, float size, double radius, int stepsPerRing, int stepsPerCircle, int stepsPerSphere, int countPerDisplay, boolean fill) {
-            ParticleBuilder builder = new ParticleBuilder(Particle.DUST)
-                    .color(color, size)
-                    .count(countPerDisplay);
-
-            double angleIncrement = Math.PI / stepsPerSphere;
-            for (int i = 0; i <= stepsPerSphere; i++) {
-                double phi = i * angleIncrement;
-                double currentRadius = radius * Math.sin(phi);
-                double y = radius * Math.cos(phi);
-                Location layerLoc = location.clone().add(0, y, 0);
-
-                if (!fill) {
-                    DrawRing(layerLoc, builder, currentRadius, (int) (stepsPerRing * currentRadius * 2));
-                } else {
-                    int adjustedStepsPerRing = (int) (stepsPerRing * (currentRadius / radius));
-                    int adjustedStepsPerCircle = (int) (stepsPerCircle * (currentRadius / radius));
-                    DrawCircle(layerLoc, color, size, currentRadius, adjustedStepsPerRing, adjustedStepsPerCircle, countPerDisplay);
-                }
-            }
-        }
-
     }
 
-    public static void DrawRing(Location location, Particle particle, double radius, int stepsPerRing, int countPerDisplay) {
+    public static void DrawRing(Location location, Particle particle, double radius, int countPerDisplay) {
         ParticleBuilder builder = new ParticleBuilder(particle)
                 .count(countPerDisplay);
-        DrawRing(location, builder, radius, stepsPerRing);
-    }
-
-    private static void DrawRing(Location location, ParticleBuilder builder, double radius, int stepsPerRing) {
-        double angleIncrement = 2 * Math.PI / stepsPerRing;
-        for (int step = 0; step < stepsPerRing; step++) {
-            double angle = step * angleIncrement;
-            builder.location(location.clone().add(
-                    radius * Math.cos(angle),
-                    0,
-                    radius * Math.sin(angle)
-            )).spawn();
-        }
+        Dust.DrawRing(location, builder, radius);
     }
 
     public static void DrawLine(Location start, Location end, Particle particle, int steps, int countPerDisplay) {

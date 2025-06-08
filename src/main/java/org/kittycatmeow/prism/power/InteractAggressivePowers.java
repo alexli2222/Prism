@@ -20,7 +20,7 @@ public enum InteractAggressivePowers {
             Player p = event.getPlayer();
             Powers.sendBenefitMessage(p, "You feel yourself getting a blessing from the nether", power.name);
             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WITHER_SPAWN, 2, 1);
-            p.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 160, 2));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 140, 2));
             for (Player e : p.getWorld().getNearbyPlayers(p.getLocation(), 10)) {
                 if (e == p) continue;
                 Powers.sendHarmMessage(e, "You body gets overly hot", power.name);
@@ -42,6 +42,7 @@ public enum InteractAggressivePowers {
                 if (e instanceof Player pe) {
                     Powers.sendHarmMessage(pe, "A bolt of lightning strikes you down, causing significant pain and disorientation", power.name);
                 }
+                e.getWorld().strikeLightningEffect(e.getLocation());
                 e.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 0));
                 e.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 0));
                 e.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 1));

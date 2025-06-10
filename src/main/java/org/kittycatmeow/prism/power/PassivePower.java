@@ -1,6 +1,8 @@
 package org.kittycatmeow.prism.power;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.kittycatmeow.prism.Prism;
 import org.kittycatmeow.prism.perishable_data_storage.CooldownStorage;
 import org.kittycatmeow.prism.ItemManip;
 import org.kittycatmeow.prism.PrismItemLibrary;
@@ -9,10 +11,14 @@ import java.util.UUID;
 
 public class PassivePower {
     public static void ExecuteWithCooldown(PlayerToggleSneakEvent event, PrismItemLibrary.Ids id, PassivePowers power) {
-        if (event.isSneaking())
-            if (ItemManip.getPower(event.getPlayer()) == id) {
+        if (event.isSneaking()) {
+            Player p = event.getPlayer();
+            UUID uuid = p.getUniqueId();
+            if (!ItemManip.isPower(p.getInventory().getItemInMainHand())
+                    && Prism.getInHandSneakingDataHandler().get(uuid.toString()))
+                return;
+            if (ItemManip.getPower(p) == id) {
                 long cooldown = power.cooldown;
-                UUID uuid = event.getPlayer().getUniqueId();
                 long since = CooldownStorage.since(
                         CooldownStorage.Passive.Cooldowns.get(power).getOrDefault(uuid, 0L)
                 );
@@ -21,11 +27,12 @@ public class PassivePower {
                     CooldownStorage.Passive.Cooldowns.get(power).put(uuid, System.currentTimeMillis());
                 } else {
                     CooldownStorage.sendCooldownMessage(
-                            event.getPlayer(),
+                            p,
                             power,
-                            cooldown-since
+                            cooldown - since
                     );
                 }
             }
+        }
     }
 }

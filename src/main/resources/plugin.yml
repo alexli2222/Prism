@@ -1,5 +1,5 @@
 name: Prism
-version: '1.3.0'
+version: '1.3.1'
 main: org.kittycatmeow.prism.Prism
 api-version: '1.21'
 load: STARTUP
@@ -12,6 +12,9 @@ commands:
   fix:
     description: Replace your power in case of a bug or you just did something stupid
     usage: /fix
+  toggleinhandsneaking:
+    description: Toggles whether or not sneaking will trigger a passive ability when your power item is not in your hand
+    usage: /toggleinhandsneaking
   getrerollitem:
     description: Get a certain number of reroll items
     permission: prism.getrerollitem

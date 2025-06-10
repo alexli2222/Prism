@@ -12,6 +12,7 @@ public class Main implements CommandExecutor {
         Prism.sendPrefixedMessage(sender, "<green>Running <gradient:dark_purple:light_purple>Prism</gradient> v"+ Prism.VERSION+" by <light_purple>_kittycatmeow</light_purple></green>");
         Prism.sendPrefixedMessage(sender, "/prism: Plugin information, this page");
         Prism.sendPrefixedMessage(sender, "/fix: Replace your power in case of a bug or you just did something stupid");
+        Prism.sendPrefixedMessage(sender, "/toggleinhandsneaking: Toggles whether or not sneaking will trigger a passive ability when your power item is not in your hand");
         if (sender.isOp()) {
             Prism.sendPrefixedMessage(sender, "/getrerollitem [count (default 1)]: Get a certain number of reroll items");
             Prism.sendPrefixedMessage(sender, "/setpower <player> <power>: Set the power of a player");

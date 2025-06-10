@@ -1,7 +1,7 @@
-package org.kittycatmeow.prism;
+package org.kittycatmeow.prism.data;
 
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.jetbrains.annotations.Nullable;
+import org.kittycatmeow.prism.Prism;
 
 import java.io.File;
 import java.io.IOException;

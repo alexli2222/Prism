@@ -6,6 +6,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.kittycatmeow.prism.cmd.*;
 import org.kittycatmeow.prism.custom_effects.*;
+import org.kittycatmeow.prism.data.DataHandler;
+import org.kittycatmeow.prism.data.FirstJoinDataHandler;
+import org.kittycatmeow.prism.data.InHandSneakingDataHandler;
 import org.kittycatmeow.prism.events.*;
 import org.kittycatmeow.prism.events.power.*;
 
@@ -15,8 +18,9 @@ public final class Prism extends JavaPlugin {
     private static DataHandler dataHandler;
     private static FirstJoinDataHandler firstJoinDataHandler;
     private static PrismItemLibrary itemLibrary;
+    private static InHandSneakingDataHandler inHandSneakingDataHandler;
 
-    public static String VERSION = "1.3.0";
+    public static String VERSION = "1.3.1";
 
     @Override
     public void onEnable() {
@@ -24,6 +28,7 @@ public final class Prism extends JavaPlugin {
         try {
             dataHandler = new DataHandler();
             firstJoinDataHandler = new FirstJoinDataHandler();
+            inHandSneakingDataHandler = new InHandSneakingDataHandler();
         } catch (Exception e) {
             e.printStackTrace();
             getServer().getPluginManager().disablePlugin(this);
@@ -37,6 +42,7 @@ public final class Prism extends JavaPlugin {
     public void onDisable() {
         dataHandler.save();
         firstJoinDataHandler.save();
+        inHandSneakingDataHandler.save();
     }
 
     public static Prism getPlugin() {
@@ -49,6 +55,10 @@ public final class Prism extends JavaPlugin {
 
     public static FirstJoinDataHandler getFirstJoinDataHandler() {
         return firstJoinDataHandler;
+    }
+
+    public static InHandSneakingDataHandler getInHandSneakingDataHandler() {
+        return inHandSneakingDataHandler;
     }
 
     public static PrismItemLibrary getItemLibrary() {
@@ -89,6 +99,7 @@ public final class Prism extends JavaPlugin {
     private void registerCommands() {
         getCommand("prism").setExecutor(new Main());
         getCommand("fix").setExecutor(new Fix());
+        getCommand("toggleinhandsneaking").setExecutor(new ToggleInHandSneaking());
         getCommand("getrerollitem").setExecutor(new GetRerollItem());
         getCommand("givererollitem").setExecutor(new GiveRerollItem());
         getCommand("givererollall").setExecutor(new GiveRerollAll());

@@ -11,7 +11,7 @@ public enum AggressivePowers {
             PrismItemLibrary.Ids.ICE,
             AggressivePowerTypes.INTERACTPLAYER,
             "<aqua>Permafrost</aqua>",
-            "Damages the clicked player by 20, then apply to them slowness 5 for 5 seconds, hunger 2 and weakness 1 for 20 seconds, and wither 10 and blindness for 3 seconds.",
+            "Damages the clicked player by 20, then apply to them slowness 5 for 5 seconds, hunger 2 and weakness 1 for 15 seconds, and wither 10 and blindness for 3 seconds.",
             45000L
     ),
     NETHERS_BLESSING (
@@ -41,6 +41,13 @@ public enum AggressivePowers {
             "<dark_purple>Curse of Zeus</dark_purple>",
             "Strikes lightning, dealing 15 immediate damage to any living entity within 8 blocks while applying blindness, nausea, and weakness 2 to them for 5 seconds. Also damage the living entities by 6 every 0.25 seconds for 2 seconds",
             40000L
+    ),
+    WIND_VEIL (
+            PrismItemLibrary.Ids.WIND,
+            AggressivePowerTypes.INTERACT,
+            "<#D3D3D3>Wind Veil</#D3D3D3>",
+            "Gain haste 4 and resistance 1 for 10 seconds, and the "+CustomEffectHandler.CustomEffects.CLOUDFOOTED.name+" effect for 15 seconds. "+CustomEffectHandler.CustomEffects.CLOUDFOOTED.getDescription(),
+            30000L
     )
     ;
     public enum AggressivePowerTypes {

@@ -7,7 +7,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.kittycatmeow.prism.Prism;
@@ -27,8 +26,8 @@ public enum InteractEntityAggressivePowers {
             e.damage(20, p);
             e.setNoDamageTicks(0);
             e.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 4));
-            e.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 400, 1));
-            e.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 400, 0));
+            e.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 300, 1));
+            e.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 300, 0));
             e.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 60, 9));
             e.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 0));
             e.getWorld().playSound(e.getLocation(), Sound.BLOCK_GLASS_BREAK, 2, 1);
@@ -48,7 +47,7 @@ public enum InteractEntityAggressivePowers {
             e.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 2));
             CustomEffectHandler.AddCustomEffect(CustomEffectHandler.CustomEffects.VULNERABLE, e, 300);
             ParticleHelper.DrawRing(e.getLocation().add(0, 1, 0), Particle.EXPLOSION, 2, 1);
-            ParticleHelper.Dust.DrawLine(e.getLocation(), e.getLocation().add(0, 10, 0), Color.GRAY, 2, 80, 2);
+            ParticleHelper.Dust.DrawLine(e.getLocation(), e.getLocation().add(0, 10, 0), Color.GRAY, 2, 2);
         }
     },
     WHIRLPOOL {

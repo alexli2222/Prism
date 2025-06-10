@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
@@ -21,7 +22,7 @@ public enum PassivePowers {
             PrismItemLibrary.Ids.ICE,
             "<aqua>Glacial Healing</aqua>",
             "Heals you for 25% of your max health, then gain regeneration 3 for 5 seconds. Also applies the "+CustomEffectHandler.CustomEffects.HARDENED.name+" effect for 10 seconds. "+CustomEffectHandler.CustomEffects.HARDENED.getDescription(),
-            20000L
+            25000L
     ) {
         @Override
         public void execute(PlayerToggleSneakEvent event) {
@@ -80,7 +81,7 @@ public enum PassivePowers {
             Player p = event.getPlayer();
             Powers.sendBenefitMessage(p, "You feel refreshed", name);
             p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 1));
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 300, 2));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 300, 1));
             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_SPLASH, 2, 1);
             p.getWorld().spawnParticle(Particle.FALLING_WATER, p.getLocation().add(0, 1, 0), 250, 0.75, 1.25, 0.75);
         }
@@ -103,6 +104,28 @@ public enum PassivePowers {
             ParticleHelper.Dust.DrawRing(p.getLocation().add(0, 0.8, 0), Color.YELLOW, 0.5f, 3, 1);
         }
     },
+    BREEZE (
+            PrismItemLibrary.Ids.WIND,
+            "<#D3D3D3>Breeze</#D3D3D3>",
+            "Launch yourself forward slightly while gaining speed 4 for 3 seconds. Damages all living entities in radius 5 of your launch point by half of your current health.",
+            10000L
+    ) {
+        public void execute(PlayerToggleSneakEvent event) {
+            Player p = event.getPlayer();
+            Powers.sendBenefitMessage(p, "The wind carries you forward", name);
+            p.setVelocity(p.getLocation().getDirection().multiply((CustomEffectHandler.HasCustomEffect(CustomEffectHandler.CustomEffects.CLOUDFOOTED, p) ? 1.5 : 1)));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 2));
+            p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WIND_CHARGE_WIND_BURST, 2, 1);
+            ParticleHelper.DrawCulledCircle(p.getLocation(), Particle.GUST, 2);
+            for (LivingEntity e : p.getWorld().getNearbyLivingEntities(p.getLocation(), 5)) {
+                if (e == p) continue;
+                e.damage(p.getHealth() / 2, p);
+                if (e instanceof Player pe)
+                    Powers.sendHarmMessage(pe, "A sharp wind blows upon you", name);
+                ParticleHelper.Dust.DrawLine(p.getLocation().add(0, 1, 0), e.getLocation().add(0, 1, 0), Color.WHITE, 1, 2);
+            }
+        }
+    }
     ;
     public final PrismItemLibrary.Ids id;
     public final String name;

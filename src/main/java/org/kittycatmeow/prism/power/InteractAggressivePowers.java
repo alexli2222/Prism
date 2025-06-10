@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.kittycatmeow.prism.CustomEffectHandler;
 import org.kittycatmeow.prism.Prism;
 import org.kittycatmeow.prism.ParticleHelper;
 import org.kittycatmeow.prism.Powers;
@@ -28,7 +29,7 @@ public enum InteractAggressivePowers {
                 e.removePotionEffect(PotionEffectType.FIRE_RESISTANCE);
                 e.setFireTicks(e.getFireTicks() + 400);
                 e.getWorld().playSound(e.getLocation(), Sound.ENTITY_WITHER_AMBIENT, 2, 1);
-                ParticleHelper.DrawLine(e.getLocation(), e.getLocation().add(0, 5, 0), Particle.LAVA, 50, 1);
+                ParticleHelper.DrawLine(e.getLocation(), e.getLocation().add(0, 5, 0), Particle.LAVA, 1);
             }
         }
     },
@@ -65,6 +66,28 @@ public enum InteractAggressivePowers {
                     }
                 }.runTaskTimer(Prism.getPlugin(), 0L, 5L);
             }
+        }
+    },
+    WIND_VEIL {
+        @Override
+        public void execute(PlayerInteractEvent event, AggressivePowers power) {
+            Player p = event.getPlayer();
+            Powers.sendBenefitMessage(p, "The wind boost your strength and dexterity", power.name);
+            p.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 200, 3));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 200, 0));
+            CustomEffectHandler.AddCustomEffect(CustomEffectHandler.CustomEffects.CLOUDFOOTED, p, 300);
+            new BukkitRunnable() {
+                int counter = 0;
+                @Override
+                public void run() {
+                    if (counter >= 20) {
+                        this.cancel();
+                        return;
+                    }
+                    p.getWorld().playSound(p.getLocation(), Sound.ENTITY_BREEZE_HURT, 2, 1);
+                    counter++;
+                }
+            }.runTaskTimer(Prism.getPlugin(), 0L, 1L);
         }
     }
     ;

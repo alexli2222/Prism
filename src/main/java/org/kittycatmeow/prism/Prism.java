@@ -16,7 +16,7 @@ public final class Prism extends JavaPlugin {
     private static FirstJoinDataHandler firstJoinDataHandler;
     private static PrismItemLibrary itemLibrary;
 
-    public static String VERSION = "1.2.2";
+    public static String VERSION = "1.3.0";
 
     @Override
     public void onEnable() {
@@ -75,6 +75,7 @@ public final class Prism extends JavaPlugin {
         manager.registerEvents(new EarthPower(), getPlugin());
         manager.registerEvents(new WaterPower(), getPlugin());
         manager.registerEvents(new ElectricityPower(), getPlugin());
+        manager.registerEvents(new WindPower(), getPlugin());
     }
 
     private void registerCustomEffects() {
@@ -82,6 +83,7 @@ public final class Prism extends JavaPlugin {
         manager.registerEvents(new Hardened(), getPlugin());
         manager.registerEvents(new Vulnerable(), getPlugin());
         manager.registerEvents(new StaticallyCharged(), getPlugin());
+        manager.registerEvents(new Cloudfooted(), getPlugin());
     }
 
     private void registerCommands() {

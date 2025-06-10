@@ -6,6 +6,8 @@ import org.kittycatmeow.prism.perishable_data_storage.CustomEffectStorage;
 import org.kittycatmeow.prism.perishable_data_storage.custom_effects.HardenedStorage;
 import org.kittycatmeow.prism.perishable_data_storage.custom_effects.StaticallyChargedStorage;
 import org.kittycatmeow.prism.perishable_data_storage.custom_effects.VulnerableStorage;
+import org.kittycatmeow.prism.perishable_data_storage.custom_effects.CloudfootedStorage;
+import org.kittycatmeow.prism.power.PassivePowers;
 
 import java.util.UUID;
 
@@ -55,6 +57,11 @@ public class CustomEffectHandler {
                 new StaticallyChargedStorage(),
                 "<yellow>Statically Charged</yellow>",
                 "any attacking entity will take 35% of the hit's damage, while gaining slowness 2 for 2 seconds."
+        ),
+        CLOUDFOOTED(
+                new CloudfootedStorage(),
+                "<#D3D3D3>Cloudfooted</#D3D3D3>",
+                "one's critical hits deal 10% more damage, grant 2 seconds of speed 3, and heal for half a heart. The <#D3D3D3>Breeze</#D3D3D3> ability launches one farther and fall damage no longer applies."
         )
         ;
         private final CustomEffectStorage storage;

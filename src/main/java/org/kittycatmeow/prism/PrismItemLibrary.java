@@ -27,6 +27,7 @@ public class PrismItemLibrary {
         registerPrismItem(Material.GREEN_DYE, "<!italic><gradient:dark_green:dark_gray:dark_green>Earth Power", Ids.EARTH);
         registerPrismItem(Material.BLUE_DYE, "<!italic><gradient:blue:dark_blue>Water Power", Ids.WATER);
         registerPrismItem(Material.YELLOW_DYE, "<!italic><gradient:white:yellow>Electricity Power", Ids.ELECTRICITY);
+        registerPrismItem(Material.LIGHT_GRAY_DYE, "<!italic><gradient:gray:white>Wind Power", Ids.WIND);
     }
 
     public enum Ids {
@@ -34,7 +35,8 @@ public class PrismItemLibrary {
         FIRE,
         EARTH,
         WATER,
-        ELECTRICITY
+        ELECTRICITY,
+        WIND
     }
 
     private void registerRerollItem() {

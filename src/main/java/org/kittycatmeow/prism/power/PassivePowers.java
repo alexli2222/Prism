@@ -73,15 +73,15 @@ public enum PassivePowers {
     REFRESH (
             PrismItemLibrary.Ids.WATER,
             "<green>Refresh</green>",
-                    "Obtain regeneration 2 and health boost 3 for 15 seconds.",
+                    "Obtain regeneration 2 and health boost 3 for 20 seconds.",
                     30000L
     ) {
         @Override
         public void execute(PlayerToggleSneakEvent event) {
             Player p = event.getPlayer();
             Powers.sendBenefitMessage(p, "You feel refreshed", name);
-            p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 1));
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 300, 1));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400, 1));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 400, 2));
             p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_SPLASH, 2, 1);
             p.getWorld().spawnParticle(Particle.FALLING_WATER, p.getLocation().add(0, 1, 0), 250, 0.75, 1.25, 0.75);
         }
@@ -124,6 +124,23 @@ public enum PassivePowers {
                     Powers.sendHarmMessage(pe, "A sharp wind blows upon you", name);
                 ParticleHelper.Dust.DrawLine(p.getLocation().add(0, 1, 0), e.getLocation().add(0, 1, 0), Color.WHITE, 1, 2);
             }
+        }
+    },
+    VANISH (
+            PrismItemLibrary.Ids.SHADOW,
+            "<dark_gray>Vanish</dark_gray>",
+            "Gain invisibility, weakness 3, resistance 2, regeneration 3, and speed 6 for 3 seconds",
+            30000L
+    ) {
+        @Override
+        public void execute(PlayerToggleSneakEvent event) {
+            Player p = event.getPlayer();
+            Powers.sendBenefitMessage(p, "You body turns clear as you begin to feel like a ghost", name);
+            p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 60, 9, false, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60, 2, false, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 60, 1, false, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60, 2, false, false));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 5, false, false));
         }
     }
     ;

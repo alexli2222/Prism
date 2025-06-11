@@ -20,7 +20,7 @@ public final class Prism extends JavaPlugin {
     private static PrismItemLibrary itemLibrary;
     private static InHandSneakingDataHandler inHandSneakingDataHandler;
 
-    public static String VERSION = "1.3.1";
+    public static String VERSION = "1.4.0";
 
     @Override
     public void onEnable() {
@@ -86,6 +86,7 @@ public final class Prism extends JavaPlugin {
         manager.registerEvents(new WaterPower(), getPlugin());
         manager.registerEvents(new ElectricityPower(), getPlugin());
         manager.registerEvents(new WindPower(), getPlugin());
+        manager.registerEvents(new ShadowPower(), getPlugin());
     }
 
     private void registerCustomEffects() {
@@ -97,6 +98,7 @@ public final class Prism extends JavaPlugin {
     }
 
     private void registerCommands() {
+        getCommand("debug").setExecutor(new Debug());
         getCommand("prism").setExecutor(new Main());
         getCommand("fix").setExecutor(new Fix());
         getCommand("toggleinhandsneaking").setExecutor(new ToggleInHandSneaking());

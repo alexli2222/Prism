@@ -32,14 +32,14 @@ public enum AggressivePowers {
             PrismItemLibrary.Ids.WATER,
             AggressivePowerTypes.INTERACTPLAYER,
             "<blue>Whirlpool</blue>",
-            "Traps the clicked player in a whirlpool for 4 seconds, then damage them for 10 plus two thirds of their current health",
+            "Traps the clicked player in a whirlpool for 4 seconds, then damage them for 10 plus two thirds of their current health.",
             60000L
     ),
     CURSE_OF_ZEUS (
             PrismItemLibrary.Ids.ELECTRICITY,
             AggressivePowerTypes.INTERACT,
             "<dark_purple>Curse of Zeus</dark_purple>",
-            "Strikes lightning, dealing 15 immediate damage to any living entity within 8 blocks while applying blindness, nausea, and weakness 2 to them for 5 seconds. Also damage the living entities by 6 every 0.25 seconds for 2 seconds",
+            "Strikes lightning, dealing 15 immediate damage to any living entity within 8 blocks while applying blindness, nausea, and weakness 2 to them for 5 seconds. Also damage the living entities by 6 every 0.25 seconds for 2 seconds.",
             40000L
     ),
     WIND_VEIL (
@@ -47,6 +47,13 @@ public enum AggressivePowers {
             AggressivePowerTypes.INTERACT,
             "<#D3D3D3>Wind Veil</#D3D3D3>",
             "Gain haste 4 and resistance 1 for 10 seconds, and the "+CustomEffectHandler.CustomEffects.CLOUDFOOTED.name+" effect for 15 seconds. "+CustomEffectHandler.CustomEffects.CLOUDFOOTED.getDescription(),
+            30000L
+    ),
+    ECHO (
+            PrismItemLibrary.Ids.SHADOW,
+            AggressivePowerTypes.INTERACT,
+            "<#2A0134>Echo</#2A0134>",
+            "Saves your current location. After 5 seconds, teleport you back to your original location while drawing a line between your original and new location. Any living entities caught in said line will take damage equal to their armor value.",
             30000L
     )
     ;

@@ -14,8 +14,9 @@ public class PassivePower {
         if (event.isSneaking()) {
             Player p = event.getPlayer();
             UUID uuid = p.getUniqueId();
-            if (!ItemManip.isPower(p.getInventory().getItemInMainHand())
-                    && Prism.getInHandSneakingDataHandler().get(uuid.toString()))
+            if (Prism.getInHandSneakingDataHandler().get(uuid.toString()) &&
+                            !ItemManip.isPower(p.getInventory().getItemInMainHand()) &&
+                            !ItemManip.isPower(p.getInventory().getItemInOffHand()))
                 return;
             if (ItemManip.getPower(p) == id) {
                 long cooldown = power.cooldown;

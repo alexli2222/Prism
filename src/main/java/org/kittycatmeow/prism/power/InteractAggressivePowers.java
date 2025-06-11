@@ -1,7 +1,7 @@
 package org.kittycatmeow.prism.power;
 
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -9,10 +9,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.kittycatmeow.prism.CustomEffectHandler;
-import org.kittycatmeow.prism.Prism;
-import org.kittycatmeow.prism.ParticleHelper;
-import org.kittycatmeow.prism.Powers;
+import org.kittycatmeow.prism.*;
+
+import java.util.List;
 
 public enum InteractAggressivePowers {
     NETHERS_BLESSING {
@@ -88,6 +87,45 @@ public enum InteractAggressivePowers {
                     counter++;
                 }
             }.runTaskTimer(Prism.getPlugin(), 0L, 1L);
+        }
+    },
+    ECHO {
+        @Override
+        public void execute(PlayerInteractEvent event, AggressivePowers power) {
+            Player p = event.getPlayer();
+            Location start = p.getLocation();
+            Location eyeStart = p.getEyeLocation();
+            World startWorld = p.getWorld();
+            startWorld.playSound(start, Sound.BLOCK_END_PORTAL_FRAME_FILL, 2, 1);
+            Powers.sendBenefitMessage(p, "A rift appears beneath your feet", power.name);
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (startWorld != p.getWorld()) {
+                        Powers.sendHarmMessage(p, "The ability failed because you switched worlds", power.name);
+                        p.getWorld().playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 2, 0.5f);
+                        this.cancel();
+                        return;
+                    }
+                    Location end = p.getLocation();
+                    Location eyeEnd = p.getEyeLocation();
+                    ParticleHelper.Dust.DrawLine(eyeStart, eyeEnd, Color.PURPLE, 1, 2);
+                    ParticleHelper.Dust.DrawLine(eyeStart, eyeEnd, Color.BLACK, 1, 2);
+                    List<LivingEntity> caught = RayTraceHelper.getAllLivingEntitiesOnLine(p.getWorld(), start.toVector(), end.toVector());
+                    for (LivingEntity le : caught) {
+                        if (le == p) continue;
+                        le.setNoDamageTicks(0);
+                        le.damage(le.getAttribute(Attribute.ARMOR).getValue());
+                        le.setNoDamageTicks(0);
+                        if (le instanceof Player pe)
+                            Powers.sendBenefitMessage(pe, "A phantom blade pierces your abdomen", power.name);
+                    }
+                    startWorld.playSound(end, Sound.ENTITY_ENDERMAN_TELEPORT, 2, 1);
+                    p.teleport(start);
+                    startWorld.playSound(start, Sound.ENTITY_ENDERMAN_TELEPORT, 2, 1);
+                    Powers.sendBenefitMessage(p, "A invisible force instantly relocates you to the prior rift", power.name);
+                }
+            }.runTaskLater(Prism.getPlugin(), 100);
         }
     }
     ;

@@ -18,6 +18,7 @@ public class CooldownStorage {
             Cooldowns.put(PassivePowers.REFRESH, new HashMap<>());
             Cooldowns.put(PassivePowers.STATIC_SHIELD, new HashMap<>());
             Cooldowns.put(PassivePowers.BREEZE, new HashMap<>());
+            Cooldowns.put(PassivePowers.VANISH, new HashMap<>());
         }
     }
     public static class InteractAggressive {
@@ -26,6 +27,7 @@ public class CooldownStorage {
             Cooldowns.put(AggressivePowers.NETHERS_BLESSING, new HashMap<>());
             Cooldowns.put(AggressivePowers.CURSE_OF_ZEUS, new HashMap<>());
             Cooldowns.put(AggressivePowers.WIND_VEIL, new HashMap<>());
+            Cooldowns.put(AggressivePowers.ECHO, new HashMap<>());
         }
     }
     public static class InteractEntityAggressive {

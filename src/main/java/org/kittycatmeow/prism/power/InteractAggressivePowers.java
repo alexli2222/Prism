@@ -50,7 +50,6 @@ public enum InteractAggressivePowers {
                 e.setNoDamageTicks(0);
                 double a = (e.getAttribute(Attribute.ARMOR).getValue() * Math.cbrt(e.getHealth()))/3.0;
                 e.damage(a, p);
-                e.setVelocity(new Vector(0, 0, 0));
                 e.setNoDamageTicks(0);
                 new BukkitRunnable() {
                     int counter = 0;
@@ -62,6 +61,7 @@ public enum InteractAggressivePowers {
                         }
                         e.setNoDamageTicks(0);
                         e.damage(5, p);
+                        e.setVelocity(new Vector(0, 0, 0));
                         e.setNoDamageTicks(0);
                         counter++;
                     }

@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 import org.kittycatmeow.prism.*;
 
 import java.util.List;
@@ -44,11 +45,12 @@ public enum InteractAggressivePowers {
                     Powers.sendHarmMessage(pe, "A bolt of lightning strikes you down, causing significant pain and disorientation", power.name);
                 }
                 e.getWorld().strikeLightningEffect(e.getLocation());
-                e.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 0));
                 e.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 100, 0));
                 e.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 1));
                 e.setNoDamageTicks(0);
-                e.damage(15, p);
+                double a = (e.getAttribute(Attribute.ARMOR).getValue() * Math.cbrt(e.getHealth()))/3.0;
+                e.damage(a, p);
+                e.setVelocity(new Vector(0, 0, 0));
                 e.setNoDamageTicks(0);
                 new BukkitRunnable() {
                     int counter = 0;
@@ -59,7 +61,7 @@ public enum InteractAggressivePowers {
                             return;
                         }
                         e.setNoDamageTicks(0);
-                        e.damage(6, p);
+                        e.damage(5, p);
                         e.setNoDamageTicks(0);
                         counter++;
                     }
@@ -125,7 +127,7 @@ public enum InteractAggressivePowers {
                     startWorld.playSound(start, Sound.ENTITY_ENDERMAN_TELEPORT, 2, 1);
                     Powers.sendBenefitMessage(p, "A invisible force instantly relocates you to the prior rift", power.name);
                 }
-            }.runTaskLater(Prism.getPlugin(), 100);
+            }.runTaskLater(Prism.getPlugin(), 40);
         }
     }
     ;

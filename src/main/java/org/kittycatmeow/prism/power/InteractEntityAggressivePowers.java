@@ -2,6 +2,7 @@ package org.kittycatmeow.prism.power;
 
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.potion.PotionEffect;
@@ -23,7 +24,8 @@ public enum InteractEntityAggressivePowers {
             Powers.sendBenefitMessage(p, "A chill runs through your veins and into your hand", power.name);
             Powers.sendHarmMessage(e, "A frigid sensation enters your body, causing <dark_red>excruciating</dark_red> pain", power.name);
             e.setNoDamageTicks(0);
-            e.damage(20, p);
+            double a = (Math.sqrt(e.getHealth()+e.getFoodLevel()) * e.getAttribute(Attribute.ARMOR).getValue())/100.0;
+            e.damage(a, p);
             e.setNoDamageTicks(0);
             e.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 4));
             e.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 300, 1));

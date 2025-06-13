@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class RayTraceHelper {
-    private static final double ACCEPT = 0.25;
+    private static final double ACCEPT = 0.5;
     public static List<Entity> getAllEntitiesOnLine(World world, Vector start, Vector end) {
         HashSet<Entity> found = new HashSet<>();
 

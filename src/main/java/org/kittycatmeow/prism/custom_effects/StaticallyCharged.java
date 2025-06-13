@@ -25,7 +25,7 @@ public class StaticallyCharged implements Listener {
             if (since < 100L) return;
             d.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 40, 1));
             d.setNoDamageTicks(0);
-            d.damage(event.getDamage() * 0.35);
+            d.damage(event.getDamage() * 0.3);
             d.setNoDamageTicks(0);
             ParticleHelper.DrawLine(p.getLocation().add(0, 1, 0), d.getLocation().add(0, 1, 0), Particle.ELECTRIC_SPARK, 5);
             cdstorage.cooldowns.put(p.getUniqueId(), System.currentTimeMillis());

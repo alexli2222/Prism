@@ -56,7 +56,7 @@ public class CustomEffectHandler {
         STATICALLY_CHARGED(
                 new StaticallyChargedStorage(),
                 "<yellow>Statically Charged</yellow>",
-                "any attacking entity will take 35% of the hit's damage, while gaining slowness 2 for 2 seconds."
+                "any attacking entity will take 30% of the hit's damage, while gaining slowness 2 for 2 seconds."
         ),
         CLOUDFOOTED(
                 new CloudfootedStorage(),

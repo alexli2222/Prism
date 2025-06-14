@@ -11,6 +11,6 @@ public class Vulnerable implements Listener {
     public void onDamage(EntityDamageByEntityEvent event) {
         if (!(event.getEntity() instanceof Player p)) return;
         if (CustomEffectHandler.HasCustomEffect(CustomEffectHandler.CustomEffects.VULNERABLE, p))
-            event.setDamage(event.getDamage() * 1.2);
+            event.setDamage(event.getDamage() * 1.3);
     }
 }

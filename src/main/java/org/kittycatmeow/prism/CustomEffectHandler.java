@@ -51,12 +51,12 @@ public class CustomEffectHandler {
         VULNERABLE(
                 new VulnerableStorage(),
                 "<red>Vulnerable</red>",
-                "one takes 20% more damage from all sources."
+                "one takes 30% more damage from all sources."
         ),
         STATICALLY_CHARGED(
                 new StaticallyChargedStorage(),
                 "<yellow>Statically Charged</yellow>",
-                "any attacking entity will take 30% of the hit's damage, while gaining slowness 2 for 2 seconds."
+                "any attacking entity will take 25% of the hit's damage, while gaining slowness 2 for 2 seconds."
         ),
         CLOUDFOOTED(
                 new CloudfootedStorage(),

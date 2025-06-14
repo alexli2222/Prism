@@ -31,7 +31,6 @@ public enum InteractEntityAggressivePowers {
             e.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 300, 1));
             e.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 300, 0));
             e.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 60, 9));
-            e.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 0));
             e.getWorld().playSound(e.getLocation(), Sound.BLOCK_GLASS_BREAK, 2, 1);
             ParticleHelper.Dust.DrawCylinder(e.getLocation().add(0, -1, 0), Color.AQUA, 0.5f, 1.5, 4, 1, false);
         }

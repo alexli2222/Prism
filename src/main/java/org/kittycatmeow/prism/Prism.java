@@ -20,7 +20,7 @@ public final class Prism extends JavaPlugin {
     private static PrismItemLibrary itemLibrary;
     private static InHandSneakingDataHandler inHandSneakingDataHandler;
 
-    public static String VERSION = "1.4.1";
+    public static String VERSION = "1.4.2";
 
     @Override
     public void onEnable() {
